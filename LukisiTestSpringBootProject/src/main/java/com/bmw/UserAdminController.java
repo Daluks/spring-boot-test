@@ -39,5 +39,11 @@ public class UserAdminController
         return users;
     }
     
+    @RequestMapping("/")
+    public String getWelcome()
+    {
+       return "Welcome to Lukisi's world";
+    }
+    
     
 }
