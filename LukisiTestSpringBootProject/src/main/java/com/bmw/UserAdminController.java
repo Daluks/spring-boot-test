@@ -8,6 +8,7 @@ package com.bmw;
 import com.bmw.model.UserDTO;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.extern.log4j.Log4j;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @author QXU1114
  */
+@Log4j
 @RestController
 public class UserAdminController
 {

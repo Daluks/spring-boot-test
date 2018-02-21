@@ -5,12 +5,14 @@
  */
 package com.bmw.model;
 
+import lombok.Data;
+
 /**
  *
  * @author QXU1114
  */
 
-//@Data
+@Data
 public class UserDTO
 {
     private String userId;
@@ -21,11 +23,11 @@ public class UserDTO
     {
         return userId;
     }
-
+ 
     public void setUserId(String userId)
     {
         this.userId = userId;
-    }
+}
 
     public String getName()
     {
@@ -37,15 +39,15 @@ public class UserDTO
         this.name = name;
     }
 
-    public String getSurname()
-    {
-        return surname;
-    }
-
-    public void setSurname(String surname)
-    {
-        this.surname = surname;
-    }
+//    public String getSurname()
+//    {
+//        return surname;
+//    }
+//
+//    public void setSurname(String surname)
+//    {
+//        this.surname = surname;
+//    }
 
     public JobRolesDTO getJob_role()
     {
