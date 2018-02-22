@@ -1,1 +1,2 @@
-# spring-boot-test
+# springboot-rest
+A simple Spring boot rest service 
