@@ -6,14 +6,24 @@
 package com.bmw;
 
 import com.bmw.dao.UserDTO;
+import com.bmw.inter.MailBoxController;
+import com.bmw.jms.LukisiJMSSender;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import lombok.extern.log4j.Log4j;
-import org.springframework.boot.SpringApplication;
-import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import za.co.lukisi.calculator.Calculator;
+import java.util.function.Predicate;
+import java.util.function.Function;
+import java.util.function.*;
 
 /**
  *
@@ -21,9 +31,18 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Log4j
 @RestController
+@Component
 public class UserAdminController
 {
-
+    @Autowired
+    private LukisiJMSSender jMSSender;
+    
+    @Autowired
+    private Calculator calculator;
+    
+    @Autowired
+    private MailBoxController mailboxService;
+    
     @RequestMapping("/users")
     @ResponseBody
     public List<UserDTO> getAllUsers()
@@ -49,6 +68,53 @@ public class UserAdminController
        return "Welcome to Lukisi's world";
     }
     
-   
+    @RequestMapping("/sendjms")
+    public void sendJMS(@RequestParam(value = "message") String sMessage, Model map)
+    {
+       jMSSender.sendMessage("inbound.queue", "This is Lukisi reporting "+sMessage);
+    }
+     
     
+    @RequestMapping("/sendjmsform")
+    public void sendJMSForm(@PathVariable String sMessage, Model map)
+    {
+        jMSSender.sendMessage("inbound.queue", "This is Lukisi reporting "+sMessage);
+    }
+    
+    @RequestMapping("/sendEmail")
+    public void sendEmail(@RequestParam(value = "to") String sTo, Model map) throws Exception
+    {
+        mailboxService.sendEmail(sTo, "joe@mall.co.za");
+    }
+    
+    @RequestMapping("/add")
+    @ResponseBody
+    public String addValues(@RequestParam(value = "a") String a, @RequestParam(value = "b") String b, Model map) throws Exception
+    {
+        Predicate <Integer> predicate = c-> c >10;
+                
+//        Function <Integer, Integer> function = x -> x;
+        
+        BiFunction<Integer, Integer, Integer> biFunction = (x,y) -> x+y;
+        
+        biFunction.apply(2, 3);
+        
+        final int consumerVal = 2;
+        
+        Consumer <Integer> consumer = (g) ->
+        {
+            int x = g + consumerVal;
+            System.out.println("Consumer result is "+x);
+        };
+        
+        consumer.accept(Integer.parseInt(a));
+        
+        
+        return calculator.addInt(Integer.parseInt(a), 
+                Integer.parseInt(b))+" and is a greater that 10 : "+
+                predicate.test(Integer.parseInt(a));
+    }
+    
+    
+       
 }
