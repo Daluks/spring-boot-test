@@ -128,12 +128,12 @@
         
         <!--Custom made calculator dependencies-->
        
-        <dependency>
+<!--        <dependency>
             <groupId>za.co.lukisi</groupId>
             <artifactId>za.co.lukisi.calculator</artifactId>
             <version>0.0.3-SNAPSHOT</version>
             <type>jar</type>
-        </dependency>
+        </dependency>-->
         
         <!--WebService dependencies-->
     

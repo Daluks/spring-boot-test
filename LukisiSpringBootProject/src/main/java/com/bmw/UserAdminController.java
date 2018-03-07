@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import za.co.lukisi.calculator.Calculator;
+//import za.co.lukisi.calculator.Calculator;
 import java.util.function.Predicate;
 import java.util.function.Function;
 import java.util.function.*;
@@ -37,9 +37,9 @@ public class UserAdminController
     @Autowired
     private LukisiJMSSender jMSSender;
     
-    @Autowired
-    private Calculator calculator;
-    
+//    @Autowired
+//    private Calculator calculator;
+//    
     @Autowired
     private MailBoxController mailboxService;
     
@@ -110,9 +110,7 @@ public class UserAdminController
         consumer.accept(Integer.parseInt(a));
         
         
-        return calculator.addInt(Integer.parseInt(a), 
-                Integer.parseInt(b))+" and is a greater that 10 : "+
-                predicate.test(Integer.parseInt(a));
+        return "Test Calculator";
     }
     
     
